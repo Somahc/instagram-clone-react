@@ -10,9 +10,12 @@ function App() {
 useEffect(() => {
   db.collection('posts').onSnapshot(snapshot => {
     // onSnapshotにより投稿が追加される度、以下の処理が実行される
-    setPosts(snapshot.docs.map(doc => doc.data()));
+    setPosts(snapshot.docs.map(doc => ({
+      id: doc.id, //投稿一つ一つにつけられるIDを取得（IDはFirebase上でみれる）
+      post: doc.data() //投稿一つ一つのデータ（今回はusername, caption, imageUrl）を取得
+    })));
   })
-})
+}, []);
 
   return (
     <div className="App">
@@ -26,8 +29,8 @@ useEffect(() => {
     <h1>HELLO WORLD</h1>
 
     {
-      posts.map(post => (
-        <Post username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
+      posts.map(({id, post}) => (
+        <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} /> //isをKeyとして用いることでPostsが更新されたときにすべてをレンダリングし直すのではなく、荒棚に追加されたものだけレンダリングするようになる
       ))
     }
     </div>
