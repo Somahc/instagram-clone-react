@@ -5,7 +5,6 @@
 /* ページ全体の背景色をかすかなグレーに */
 .app {
   background-color: #fafafa;
-  height: 100vh;
 }
 
 /* ヘッダー（トップバー）に関する設定 */
