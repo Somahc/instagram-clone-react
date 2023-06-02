@@ -8,10 +8,10 @@
   height: 100vh;
 }
 
-/* インスタロゴのアスペクト比がどんな場合も崩れないよう指定 */
+/* ヘッダー（トップバー）に関する設定 */
 .app__header {
   background-color: white;
-  object-fit: contain;
+  object-fit: contain; /* インスタロゴのアスペクト比がどんな場合も崩れないよう指定 */
   padding: 20px;
   border-bottom: 1px solid lightgray;
 }
