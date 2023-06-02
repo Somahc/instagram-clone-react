@@ -6,3 +6,8 @@
 .post__text{
     font-weight: normal;
 }
+
+.post__header{
+    display: flex; /* ラップされている要素を横並びにする */
+    align-items: center;
+}
