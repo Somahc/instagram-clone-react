@@ -3,7 +3,6 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>hello world</h1>
       <div className="app__header">
         <img
           className="app__headerImage"
@@ -11,8 +10,7 @@ function App() {
           alt=""
         />
       </div>
-
-      {/* Header */}
+    <h1>HELLO WORLD</h1>
       {/* Posts */}
       {/* Posts */}
     </div>
