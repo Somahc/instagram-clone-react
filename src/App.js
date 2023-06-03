@@ -2,9 +2,30 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './Post'
 import { db } from './firebase'
+import BasicModal from './BasicModal'
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
 
 function App() {
   const [posts, setPosts] = useState([]);
+
+  const [open, setOpen] = useState(false);
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
 //useEffectは特定の変数に変更が加えられる度に実行する処理
 useEffect(() => {
@@ -19,6 +40,17 @@ useEffect(() => {
 
   return (
     <div className="App">
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <Box sx={style}>
+          dfs
+        </Box>
+      </Modal>
+      <Button onClick={() => setOpen(true)}>gdf</Button>
+      
+      <BasicModal />
       <div className="app__header">
         <img
           className="app__headerImage"
