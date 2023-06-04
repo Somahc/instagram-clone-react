@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './Post'
 import { db } from './firebase'
-import BasicModal from './BasicModal'
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Input from '@mui/material/Input'
 
 
 function App() {
   const [posts, setPosts] = useState([]);
 
   const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const style = {
     position: 'absolute',
@@ -38,6 +40,9 @@ useEffect(() => {
   })
 }, []);
 
+const signUp = (event) => {
+
+}
   return (
     <div className="App">
       <Modal
@@ -45,12 +50,35 @@ useEffect(() => {
         onClose={() => setOpen(false)}
       >
         <Box sx={style}>
-          dfs
+          <center>
+            <img
+              className="app__headerImage"
+              src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+              alt=""
+            />
+            <Input
+              placeholder="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+              placeholder="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              placeholder="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button onClick={signUp}>SIGN UP</Button>
+          </center>
         </Box>
       </Modal>
-      <Button onClick={() => setOpen(true)}>gdf</Button>
-      
-      <BasicModal />
+      <Button onClick={() => setOpen(true)}>SIGN UP</Button>
       <div className="app__header">
         <img
           className="app__headerImage"
