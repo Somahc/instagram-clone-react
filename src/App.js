@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './Post'
-import { db } from './firebase'
+import { db, auth } from './firebase'
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -16,6 +16,7 @@ function App() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
 
   const style = {
     position: 'absolute',
@@ -29,6 +30,25 @@ function App() {
     p: 4,
   };
 
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged((authUser) => { //ユーザーがログイン、ログアウト、登録などユーザーに関するものに更新があるたびに発火
+    if (authUser) {
+      //ユーザーがログイン
+      console.log(authUser);
+      setUser(authUser);
+
+    } else {
+      //ユーザーがログアウト
+      setUser(null);
+    }
+  })
+
+  return () => {
+    //cleanupを実行
+    unsubscribe();
+  }
+}, [user, username]);
+
 //useEffectは特定の変数に変更が加えられる度に実行する処理
 useEffect(() => {
   db.collection('posts').onSnapshot(snapshot => {
@@ -41,7 +61,16 @@ useEffect(() => {
 }, []);
 
 const signUp = (event) => {
-
+  event.preventDefault();
+  
+  auth
+  .createUserWithEmailAndPassword(email, password)
+  .then((authUser) => {
+    return authUser.user.updateProfile({
+      displayName: username
+    })
+  })
+  .catch((error) => alert(error.message))
 }
   return (
     <div className="App">
@@ -50,35 +79,36 @@ const signUp = (event) => {
         onClose={() => setOpen(false)}
       >
         <Box sx={style}>
-          <center>
-            <img
-              className="app__headerImage"
-              src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-              alt=""
+          <form className="app__signup">
+            <center>
+              <img
+                className="app__headerImage"
+                src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+                alt=""
+              />
+            </center>
+            <Input
+              placeholder="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-          </center>
-          <Input
-            placeholder="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <Input
-            placeholder="email"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            placeholder="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button onClick={signUp}>SIGN UP</Button>
+            <Input
+              placeholder="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              placeholder="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button type="submit" onClick={signUp}>SIGN UP</Button>
+          </form>
         </Box>
       </Modal>
-      <Button onClick={() => setOpen(true)}>SIGN UP</Button>
       <div className="app__header">
         <img
           className="app__headerImage"
@@ -86,6 +116,11 @@ const signUp = (event) => {
           alt=""
         />
       </div>
+      {user ? (
+        <Button onClick={() => auth.signOut()}>LOG OUT</Button>
+      ) : (
+        <Button onClick={() => setOpen(true)}>SIGN UP</Button>
+      )}
     <h1>HELLO WORLD</h1>
 
     {
