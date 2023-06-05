@@ -11,7 +11,7 @@ import Input from '@mui/material/Input'
 
 function App() {
   const [posts, setPosts] = useState([]);
-
+  const [openSignIn, setOpenSignIn] = useState(false);
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -71,10 +71,22 @@ const signUp = (event) => {
     })
   })
   .catch((error) => alert(error.message))
+
+  setOpen(false);//入力後モーダルを閉じる
+}
+
+const signIn = (event) => {
+  event.preventDefault();
+
+  auth
+  .signInWithEmailAndPassword(email, password)
+  .catch((error) => alert(error.message))
+
+  setOpenSignIn(false);//入力後モーダルを閉じる
 }
   return (
     <div className="App">
-      <Modal
+      <Modal //sign up用モーダル。ユーザネーム、メアド、パスワードを要求
         open={open}
         onClose={() => setOpen(false)}
       >
@@ -109,6 +121,36 @@ const signUp = (event) => {
           </form>
         </Box>
       </Modal>
+
+      <Modal //sign in用モーダル（メアド、パスワードを要求）
+        open={openSignIn}
+        onClose={() => setOpenSignIn(false)}
+      >
+        <Box sx={style}>
+          <form className="app__signup">
+            <center>
+              <img
+                className="app__headerImage"
+                src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+                alt=""
+              />
+            </center>
+            <Input
+              placeholder="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              placeholder="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button type="submit" onClick={signIn}>SIGN IN</Button>
+          </form>
+        </Box>
+      </Modal>
       <div className="app__header">
         <img
           className="app__headerImage"
@@ -116,10 +158,14 @@ const signUp = (event) => {
           alt=""
         />
       </div>
+
       {user ? (
         <Button onClick={() => auth.signOut()}>LOG OUT</Button>
       ) : (
-        <Button onClick={() => setOpen(true)}>SIGN UP</Button>
+        <div className="app__loginContainer">
+          <Button onClick={() => setOpenSignIn(true)}>SIGN IN</Button>
+          <Button onClick={() => setOpen(true)}>SIGN UP</Button>
+        </div>
       )}
     <h1>HELLO WORLD</h1>
 
