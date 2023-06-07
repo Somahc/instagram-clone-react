@@ -61,24 +61,27 @@ function Post({ postId, user, username, caption, imageUrl }) { //userはサイ�
             </p>
           ))}
         </div>
-
-        <form className="post__commentBox">
-          <input
-            className="post__input"
-            type="text"
-            placeholder='コメントを入力...'
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <button
-            className="post__button"
-            disabled={!comment}
-            type="submit"
-            onClick={postComment}
-          >
-            投稿
-          </button>
+        
+        {user && ( //ログインしていないとコメント投稿セクションが現れない
+          <form className="post__commentBox">
+            <input
+              className="post__input"
+              type="text"
+              placeholder='コメントを入力...'
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button
+              className="post__button"
+              disabled={!comment}
+              type="submit"
+              onClick={postComment}
+            >
+              投稿
+            </button>
         </form>
+        )}
+        
     </div>
   )
 }
