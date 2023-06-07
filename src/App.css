@@ -7,6 +7,11 @@
   background-color: #fafafa;
 }
 
+.app__posts {
+  padding: 20px;
+  justify-content: center;
+}
+
 /* ヘッダー（トップバー）に関する設定 */
 .app__header {
   background-color: white;
@@ -19,7 +24,7 @@
 
 .app__headerImage {
   object-fit: contain;
-  
+
 }
 
 .app__signup {

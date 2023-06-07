@@ -169,12 +169,13 @@ const signIn = (event) => {
       )}
       </div>
     <h1>HELLO WORLD</h1>
-
-    {
-      posts.map(({id, post}) => (
-        <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} /> //isをKeyとして用いることでPostsが更新されたときにすべてをレンダリングし直すのではなく、荒棚に追加されたものだけレンダリングするようになる
-      ))
-    }
+    <div className="app__posts">
+      {
+        posts.map(({id, post}) => (
+          <Post key={id} postId={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} /> //idをKeyとして用いることでPostsが更新されたときにすべてをレンダリングし直すのではなく、荒棚に追加されたものだけレンダリングするようになる
+        ))
+      }
+    </div>
 
     {user?.displayName ? ( //user.displayNameと書くとログインしてない際userがnullでエラーになってしまうので、user?とすることでuserが設定されていればdisplayNameを取得することができる
         <ImageUpload username={user.displayName}/>
