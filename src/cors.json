@@ -1,0 +1,7 @@
+[
+    {
+      "origin": ["*"],
+      "method": ["PUT"],
+      "maxAgeSeconds": 3600
+    }
+  ]

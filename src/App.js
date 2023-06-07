@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './Post'
 import { db, auth } from './firebase'
+import ImageUpload from './ImageUpload';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -86,6 +87,13 @@ const signIn = (event) => {
 }
   return (
     <div className="App">
+
+      {user?.displayName ? ( //user.displayNameと書くとログインしてない際userがnullでエラーになってしまうので、user?とすることでuserが設定されていればdisplayNameを取得することができる
+        <ImageUpload username={user.displayName}/>
+      ): (
+        <h3>投稿するにはログインする必要があります！</h3>
+      )}
+
       <Modal //sign up用モーダル。ユーザネーム、メアド、パスワードを要求
         open={open}
         onClose={() => setOpen(false)}
