@@ -64,7 +64,7 @@ function ImageUpload({username}) {
     };
     return (
         <div className="imageupload">
-            <progress class="imageupload__progress" value={progress} max="100" />
+            <progress className="imageupload__progress" value={progress} max="100" />
             <input type="text" placeholder='説明文を入力...' onChange={event => setCaption(event.target.value)} value={caption} />
             <input type="file" onChange={handleChange} />
             <Button onClick={handleUpload}>

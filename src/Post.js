@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import './Post.css';
 import Avatar from '@mui/material/Avatar'
+import firebase from 'firebase/compat/app';
 
-function Post({ postId, username, caption, imageUrl }) {
+function Post({ postId, user, username, caption, imageUrl }) { //userはサインインしているユーザ、usernameは投稿をしたユーザ
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState(''); //入力されるコメントの管理
   useEffect(() => {
@@ -13,6 +14,7 @@ function Post({ postId, username, caption, imageUrl }) {
         .collection("posts")
         .doc(postId)
         .collection("comments")
+        .orderBy('timestamp', 'desc')
         .onSnapshot((snapshot) => {
           setComments(snapshot.docs.map((doc) => doc.data()));
         });
@@ -24,7 +26,14 @@ function Post({ postId, username, caption, imageUrl }) {
   }, [postId]);
 
   const postComment = (event) => {
-
+    event.preventDefault();
+    
+    db.collection("posts").doc(postId).collection("comments").add({ //postsコレクション→特定の投稿→commentsコレクション
+      text: comment,
+      username: user.displayName, //サインインしているユーザの名前がコメントをしたユーザとして記録
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    setComment('');
   }
 
   return (

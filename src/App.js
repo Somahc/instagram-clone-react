@@ -172,7 +172,7 @@ const signIn = (event) => {
     <div className="app__posts">
       {
         posts.map(({id, post}) => (
-          <Post key={id} postId={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} /> //idをKeyとして用いることでPostsが更新されたときにすべてをレンダリングし直すのではなく、荒棚に追加されたものだけレンダリングするようになる
+          <Post key={id} postId={id} user={user} username={post.username} caption={post.caption} imageUrl={post.imageUrl} /> //idをKeyとして用いることでPostsが更新されたときにすべてをレンダリングし直すのではなく、荒棚に追加されたものだけレンダリングするようになる
         ))
       }
     </div>
