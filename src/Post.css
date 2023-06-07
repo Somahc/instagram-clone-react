@@ -32,6 +32,10 @@
     margin-top: 10px;
 }
 
+.post__comments {
+    padding: 10px;
+}
+
 .post__input {
     flex: 1; /* コメント入力欄をとれるだけ大きいスペースにする */
     border: none;
