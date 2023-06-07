@@ -52,7 +52,7 @@ useEffect(() => {
 
 //useEffectは特定の変数に変更が加えられる度に実行する処理
 useEffect(() => {
-  db.collection('posts').onSnapshot(snapshot => {
+  db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
     // onSnapshotにより投稿が追加される度、以下の処理が実行される
     setPosts(snapshot.docs.map(doc => ({
       id: doc.id, //投稿一つ一つにつけられるIDを取得（IDはFirebase上でみれる）
