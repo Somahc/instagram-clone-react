@@ -159,16 +159,15 @@ const signIn = (event) => {
           src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
           alt=""
         />
-      </div>
-
-      {user ? (
-        <Button onClick={() => auth.signOut()}>LOG OUT</Button>
-      ) : (
-        <div className="app__loginContainer">
-          <Button onClick={() => setOpenSignIn(true)}>SIGN IN</Button>
-          <Button onClick={() => setOpen(true)}>SIGN UP</Button>
+        {user ? (
+          <Button onClick={() => auth.signOut()}>LOG OUT</Button>
+        ) : (
+          <div className="app__loginContainer">
+            <Button onClick={() => setOpenSignIn(true)}>SIGN IN</Button>
+            <Button onClick={() => setOpen(true)}>SIGN UP</Button>
         </div>
       )}
+      </div>
     <h1>HELLO WORLD</h1>
 
     {
