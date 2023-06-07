@@ -14,6 +14,9 @@
 
 /* ヘッダー（トップバー）に関する設定 */
 .app__header {
+  position: sticky; /* ヘッダーがスクロールしても常に画面上部に */
+  top: 0;
+  z-index: 1; /* ヘッダーが画面の要素の中で常に一番前に来るように */
   background-color: white;
   object-fit: contain; /* インスタロゴのアスペクト比がどんな場合も崩れないよう指定 */
   padding: 20px;
