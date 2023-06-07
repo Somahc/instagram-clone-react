@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { storage, db } from './firebase';
 import firebase from 'firebase/compat/app';
 import "firebase/compat/firestore";
+import './ImageUpload.css';
 
 
 function ImageUpload({username}) {
@@ -62,11 +63,7 @@ function ImageUpload({username}) {
         );
     };
     return (
-        <div>
-            {/* {これから...} */}
-            {/* キャプション入力 */}
-            {/* ファイル選択 */}
-            {/* 投稿ボタンを実装したい */}
+        <div className="imageupload">
             <progress value={progress} max="100" />
             <input type="text" placeholder='説明文を入力...' onChange={event => setCaption(event.target.value)} value={caption} />
             <input type="file" onChange={handleChange} />
