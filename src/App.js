@@ -88,12 +88,6 @@ const signIn = (event) => {
   return (
     <div className="App">
 
-      {user?.displayName ? ( //user.displayNameと書くとログインしてない際userがnullでエラーになってしまうので、user?とすることでuserが設定されていればdisplayNameを取得することができる
-        <ImageUpload username={user.displayName}/>
-      ): (
-        <h3>投稿するにはログインする必要があります！</h3>
-      )}
-
       <Modal //sign up用モーダル。ユーザネーム、メアド、パスワードを要求
         open={open}
         onClose={() => setOpen(false)}
@@ -182,6 +176,12 @@ const signIn = (event) => {
         <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} /> //isをKeyとして用いることでPostsが更新されたときにすべてをレンダリングし直すのではなく、荒棚に追加されたものだけレンダリングするようになる
       ))
     }
+
+    {user?.displayName ? ( //user.displayNameと書くとログインしてない際userがnullでエラーになってしまうので、user?とすることでuserが設定されていればdisplayNameを取得することができる
+        <ImageUpload username={user.displayName}/>
+      ): (
+        <h3>投稿するにはログインする必要があります！</h3>
+      )}
     </div>
   );
 }
